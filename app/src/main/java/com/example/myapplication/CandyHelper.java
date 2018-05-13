@@ -192,10 +192,28 @@ public class CandyHelper {
     }
 
 
-    /**Check if the map has any other solutions
-     *
+
+    /**Get the score of this time of crush
      *
      * @return
+     */
+    public int ScoretoCrush(){
+        int negScore = 0;
+
+       for(int i=0;i<9;i++) {
+           for (int j = 0; j < 9; j++) {
+                negScore+=stateMap[i][j];
+           }
+       }
+       int score = 0 - negScore;
+       return score;
+    }
+
+
+    /**Check if the map has any other solutions
+     * ===to be implemented
+     *
+     * @return result
      */
     public boolean isDone(){
 

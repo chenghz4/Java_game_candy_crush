@@ -27,18 +27,22 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
      //p.add(Bitmap);
     float x;
     float y;
-    Candy candy[]=new Candy[81];
-    int stateMap[][]=new int[9][9];
+    Candy candy[][]=new Candy[9][9];
+
     user a=new user();
+
+
 
     public Boardview(Context context) {
         super(context) ;
         getHolder().addCallback(this) ;
         setFocusable(true) ; // Very i m p o r t a n t
 
-        for(int i=0;i<81;i++) {
-            candy[i]=new Candy();
-            candy[i].set_type();
+        for(int i=0;i<9;i++) {
+            for (int j = 0; j < 9; j++) {
+                candy[i][j] = new Candy();
+                candy[i][j].set_type();
+            }
         }
 
         p.add(mybitmap0);
@@ -50,132 +54,6 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
 
 
     }
-
-    //return the number of same candy
-    public int checkCandy(int index){
-        int sameNum = 0;
-
-        int i = index/9; //row
-        int j = index%9; //column
-
-        int r = checkright(index, j);
-        int l = checkleft(index,j);
-        int u = checkup(index, i);
-        int d = checkdown(index,i);
-
-        if((r-l+1) >= 3) {//>=2
-            sameNum = r - l;
-            for(int m = r ; m<=l;m++ ){
-                stateMap[i][m] = -1; //fill the state map
-            }
-        }
-        if((d-u+1) >= 3) {
-            sameNum = sameNum + (d - u);
-            for(int n =u; n<=d; n++)
-                stateMap[n][j] = -1;  //fill the state map
-        }
-        sameNum ++; //plus center
-
-        if(sameNum >=3)
-            return sameNum;
-
-        return -1;
-    }
-
-    public boolean dropCandies(){
-        try {
-            for (int col = 0; col < 9; col++) {
-                for (int row = 8; row >= 0; row--) {
-                    //check every possible pitfall and drop candy from up to down
-                    if (stateMap[row][col] == -1) {
-                        //resume the state
-                        stateMap[row][col] = 0;
-                        Candy c = new Candy();
-                        c.set_type();
-                        int work = row;
-                        for (work = row; work > 0; work--) {
-                            candy[work * 9 + col] = candy[work * 9 - 9 + col]; //replace the candy
-                        }
-                        //in the end ,work =0; 0*9 + col = col
-                        candy[col] = c;
-                    }
-                }
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-
-        return true;
-    }
-
-
-    //retrun the rightmost same index
-    public int checkright(int index, int j){
-        int work = index;
-        int originType = candy[index].get_type();
-
-        while(j<8){
-            work++;
-            j++;
-            if (candy[work].get_type() != originType)
-                break;
-        }
-        return j;
-    }
-
-    //return the leftmost same index
-    public int checkleft(int index, int j){
-        int work = index;
-        int originType = candy[index].get_type();
-        while(j>0){
-            work--;
-            j--;
-            if (candy[work].get_type() != originType) {
-                break;
-            }
-        }
-        return j;
-    }
-
-    //return the upmost same index
-    public int checkup(int index, int i){
-        int work = index;
-        int originType = candy[index].get_type();
-
-        while(i>0){
-            work = work-9;
-            i--;
-            if (candy[work].get_type() != originType) {
-               break;
-            }
-        }
-        return i;
-    }
-
-    //return the downmost same index
-    public int checkdown(int index,int i){
-        int work = index;
-        int originType = candy[index].get_type();
-        while(i<8){
-            work = work+9;
-            i++;
-            if (candy[work].get_type()!= originType)
-                break;
-        }
-        return i;
-    }
-
-    public boolean isDone(){
-        return false;
-    }
-
-    public boolean checkAndRefreshMap(){
-
-        return false;
-    }
-
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
@@ -215,7 +93,7 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
         for(int i=0;i<9;i++){
             for(int j=0;j<9;j++) {
                 dst.set(150+i*130,300+j*130,250+i*130,400+j*130);
-                c.drawBitmap(p.get(candy[i*9+j].get_type()),null,dst,null);
+                c.drawBitmap(p.get(candy[i][j].get_type()),null,dst,null);
 
             }
         }
