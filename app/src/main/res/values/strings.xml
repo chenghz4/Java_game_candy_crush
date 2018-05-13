@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="score">Score:</string>
-    <string name="name">Name</string>
-    <string name="return">return</string>
-    <string name="restart">restart</string>
     <string name="move">Move</string>
+    <string name="back">Back</string>
+    <string name="restart">Restart</string>
 </resources>

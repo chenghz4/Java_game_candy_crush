@@ -26,22 +26,19 @@
         android:layout_width="212dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="33dp"
-        android:layout_marginEnd="35dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="35dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/move"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/restart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sco"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/return1"
+        android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
@@ -50,23 +47,26 @@
         android:layout_marginRight="33dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="363dp"
-        android:text="@string/return"
+        android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/sco"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/restart"
+        android:id="@+id/res"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
         android:layout_marginEnd="33dp"
+        android:layout_marginLeft="35dp"
         android:layout_marginRight="33dp"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="24dp"
         android:text="@string/restart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/return" />
+        app:layout_constraintStart_toEndOf="@+id/move"
+        app:layout_constraintTop_toBottomOf="@+id/back" />
 
 </android.support.constraint.ConstraintLayout>

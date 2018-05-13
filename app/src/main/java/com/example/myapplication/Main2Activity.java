@@ -19,8 +19,8 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         final Boardview b = new Boardview(this);
-        re = (Button) findViewById(R.id.return1);
-        restart = (Button) findViewById(R.id.restart);
+        re = (Button) findViewById(R.id.back);
+        restart = (Button) findViewById(R.id.res);
         sco = (EditText) findViewById(R.id.sco);
         move = (EditText) findViewById(R.id.move);
         sco.setCursorVisible(false);
@@ -28,7 +28,7 @@ public class Main2Activity extends AppCompatActivity {
         re.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Main2Activity.this,MainActivity.class));
+               finish();
 
 
             }
