@@ -31,7 +31,7 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
     float x1, x2, y1, y2;
     double xl, yl = 0;
     int xr, yr = 0;
-    String ss, ss1;
+    CandyHelper h=new CandyHelper();
     boolean flag1 = false;
     boolean restart=false;
     Candy temp = new Candy();
@@ -45,12 +45,21 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
         getHolder().addCallback(this);
         setFocusable(true); // Very i m p o r t a n t
         requestFocus();
+
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 candy[i][j] = new Candy();
                 candy[i][j].set_type();
             }
         }
+       while(h.checkWholeMap(candy)) {
+           for (int i = 0; i < 9; i++) {
+               for (int j = 0; j < 9; j++) {
+                   candy[i][j] = new Candy();
+                   candy[i][j].set_type();
+               }
+           }
+       };
 
         p.add(mybitmap0);
         p.add(mybitmap1);
@@ -116,6 +125,8 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
             //restart=true;
         }
         if(a.check())    ;
+
+
         if (flag1 && xl < 9 && xl >= 0 && yl >= 0 && yl < 9 && x1 != 0 && x2 != 0) {
             switch (direction) {
                 case 0:
@@ -155,7 +166,7 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
                     break;
             }
 
-
+//if(h.checkWholeMap(candy)) h.dropCandies(candy);
             flag1 = false;
         }
         paint.setColor(Color.WHITE);
@@ -173,6 +184,7 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
         super.onDraw(c);
         c.drawColor(Color.TRANSPARENT);//draw the background color to red
         Rect dst = new Rect();
+
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 dst.set(150 + i * 120, 300 + j * 120, 270 + i * 120, 420 + j * 120);
@@ -194,15 +206,29 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
 
 
     public void setRestart(){
-        if(restart) {
 
-            for(int i=0;i<9;i++){
-                for (int j=0;j<9;j++) {
-                    candy[i][j].set_type();
+
+            if (restart) {
+                if (!h.checkWholeMap(candy)) {
+                    for (int i = 0; i < 9; i++) {
+                        for (int j = 0; j < 9; j++) {
+                            candy[i][j].set_type();
+                        }
+                    }
                 }
+
+                while (h.checkWholeMap(candy)) {
+                    for (int i = 0; i < 9; i++) {
+                        for (int j = 0; j < 9; j++) {
+                            candy[i][j].set_type();
+                        }
+                    }
+
                 }
-            a.clear();;
-        }
-        restart=false;
+                ;
+                a.clear();
+                ;
+                restart = false;
+            }
     }
 }

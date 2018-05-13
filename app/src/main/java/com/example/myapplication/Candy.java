@@ -11,11 +11,4 @@ public class Candy {
     public int get_type() {
         return type;
     }
-    public boolean check(){
-
-
-
-        return false;
-    }
-
 }
