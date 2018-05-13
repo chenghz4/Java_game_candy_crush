@@ -165,8 +165,8 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
                 default:
                     break;
             }
-
-//if(h.checkWholeMap(candy)) h.dropCandies(candy);
+            a.score=a.score+h.ScoretoCrush();
+if(h.checkWholeMap(candy)) h.dropCandies(candy);
             flag1 = false;
         }
         paint.setColor(Color.WHITE);

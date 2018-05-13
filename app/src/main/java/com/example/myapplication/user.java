@@ -3,7 +3,7 @@ package com.example.myapplication;
 public class user {
 
 
-    private int score;
+    public int score;
     public boolean flag;
     public int count=0;
     public int countmax=10;
