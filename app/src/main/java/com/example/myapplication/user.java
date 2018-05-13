@@ -5,7 +5,8 @@ public class user {
 
     private int score;
     public boolean flag;
-
+    public int count=0;
+    public int countmax=10;
     user() {
         score = 0;
         flag = false;
@@ -20,6 +21,13 @@ public class user {
             score++;
             flag=false;
         }
+
+    }
+    public  boolean check(){
+        if(count<countmax) return false;
+        else return true;
+
+
 
     }
 
