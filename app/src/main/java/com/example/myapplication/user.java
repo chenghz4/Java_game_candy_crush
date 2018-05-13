@@ -30,6 +30,13 @@ public class user {
 
 
     }
+    public void clear(){
+        score=0;
+        count=0;
+        countmax=10;
+        flag=false;
+
+    }
 
 
 }

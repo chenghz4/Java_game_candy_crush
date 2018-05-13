@@ -26,12 +26,12 @@ public class MainActivity extends AppCompatActivity {
         bt0 = (Button) findViewById(R.id.bt0);
         bt1 = (Button) findViewById(R.id.bt1);
         input = (TextView) findViewById(R.id.tx0);
-
+        final Boardview b = new Boardview(this);
         bt0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            startActivity(new Intent(MainActivity.this,Main2Activity.class));
 
+                setContentView(b);
 
             }
         });
