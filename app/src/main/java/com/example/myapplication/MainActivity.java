@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.content.Intent;
+import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -8,6 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import java.util.ArrayList;
 import android.widget.*;
+import android.view.Window;
+import android.view.WindowManager;
 
 public class MainActivity extends AppCompatActivity {
     private TextView input = null;
@@ -16,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Boardview b = new Boardview(this);
+
+
         setContentView(R.layout.activity_main);
         bt0 = (Button) findViewById(R.id.bt0);
         bt1 = (Button) findViewById(R.id.bt1);
@@ -25,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
         bt0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(b);
+            startActivity(new Intent(MainActivity.this,Main2Activity.class));
+
+
             }
         });
 

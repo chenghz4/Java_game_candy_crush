@@ -38,7 +38,7 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
         super(context) ;
         getHolder().addCallback(this) ;
         setFocusable(true) ; // Very i m p o r t a n t
-
+        requestFocus();
         for(int i=0;i<9;i++) {
             for (int j = 0; j < 9; j++) {
                 candy[i][j] = new Candy();
@@ -173,7 +173,7 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
     protected void onDraw (Canvas c ){
 
         super.onDraw(c);
-        c.drawColor(Color.BLACK);//draw the background color to red
+        c.drawColor(Color.TRANSPARENT);//draw the background color to red
         Rect dst =new Rect ( ) ;
         for(int i=0;i<9;i++){
             for(int j=0;j<9;j++) {
@@ -183,7 +183,6 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
 
-        //c.drawBitmap(mybitmap1,null,dst,null);//draw the image you putted in the folder drawble
     }
 }
 
