@@ -55,11 +55,13 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
        while(h.checkWholeMap(candy)) {
            for (int i = 0; i < 9; i++) {
                for (int j = 0; j < 9; j++) {
-                   candy[i][j] = new Candy();
+                  // candy[i][j] = new Candy();
                    candy[i][j].set_type();
                }
            }
        };
+
+        h.clearState();
 
         p.add(mybitmap0);
         p.add(mybitmap1);
@@ -122,9 +124,14 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
         if(y1<=1800&&y1>=1700&&y2<=1800&&y2>=1700&&x1>1000&&x2>1000&&x1<1360&&x2<1360) restart=true;
         setRestart();
         if(y1<=2000&&y1>=1900&&y2<=2000&&y2>=1900&&x1>1000&&x2>1000&&x1<1220&&x2<1220){
-            //restart=true;
+           //exit() in a fail way;
+
+
+
+
+
         }
-        if(a.check())    ;
+
 
 
         if (flag1 && xl < 9 && xl >= 0 && yl >= 0 && yl < 9 && x1 != 0 && x2 != 0) {
@@ -135,7 +142,7 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
                         candy[xr][yr] = candy[xr][yr - 1];
                         candy[xr][yr - 1] = temp;
                     }
-                    a.count++;
+                    a.countmax--;
                     break;
 
                 case 1:
@@ -144,7 +151,7 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
                         candy[xr][yr] = candy[xr][yr + 1];
                         candy[xr][yr + 1] = temp;
                     }
-                    a.count++;
+                    a.countmax--;
                     break;
                 case 2:
                     if (xr > 0) {
@@ -152,7 +159,7 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
                         candy[xr][yr] = candy[xr - 1][yr];
                         candy[xr - 1][yr] = temp;
                     }
-                    a.count++;
+                    a.countmax--;
                     break;
                 case 3:
                     if (xr < 8) {
@@ -160,13 +167,29 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
                         candy[xr][yr] = candy[xr + 1][yr];
                         candy[xr + 1][yr] = temp;
                     }
-                    a.count++;
+                    a.countmax--;
                     break;
                 default:
                     break;
             }
-            a.score=a.score+h.ScoretoCrush();
-if(h.checkWholeMap(candy)) h.dropCandies(candy);
+            if(a.check()){
+
+
+            }
+            if(a.checktarget()){
+
+
+
+            }
+
+
+
+            while(h.checkWholeMap(candy)){
+                a.score=a.score+h.ScoretoCrush();
+                h.dropCandies(candy);
+                //h.clearState();
+            }
+
             flag1 = false;
         }
         paint.setColor(Color.WHITE);
@@ -174,7 +197,7 @@ if(h.checkWholeMap(candy)) h.dropCandies(candy);
         aa.set(200,1600,800,2000);
         c.drawRect(aa,paint);
         onDraw(c);
-
+       // h.clearState();
         getHolder().unlockCanvasAndPost(c);
         return true;
     }
@@ -195,12 +218,11 @@ if(h.checkWholeMap(candy)) h.dropCandies(candy);
         paint.setColor(Color.BLACK);
         paint.setTextSize(100);
         paint.setStyle(Paint.Style.FILL);
-        c.drawText("Move:  "+a.count,200,1800,paint);
+        c.drawText("Move:  "+a.countmax,200,1800,paint);
         c.drawText("Score:  "+a.getScore(),200,2000,paint);
-
+        c.drawText("Target:80",200,1500,paint);
         c.drawText("Restart",1000,1800,paint);
         c.drawText("Back",1000,2000,paint);
-
 
     }
 
@@ -224,10 +246,10 @@ if(h.checkWholeMap(candy)) h.dropCandies(candy);
                         }
                     }
 
-                }
-                ;
+                };
+
                 a.clear();
-                ;
+               h.clearState();
                 restart = false;
             }
     }

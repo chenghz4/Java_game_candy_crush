@@ -2,11 +2,20 @@ package com.example.myapplication;
 
 public class CandyHelper {
     int stateMap[][] = new int [9][9];   //show if this status is checked out.
+    boolean score[][] = new boolean[9][9];
 
 
     CandyHelper(){
         super();  //initial to 0;
     }
+
+    public void clearState(){
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++)
+                stateMap[i][j]=0;
+        }
+    }
+
 
     public void PrintState(){
         for(int i=0;i<9;i++){
@@ -17,9 +26,27 @@ public class CandyHelper {
         }
     }
 
+    public void PrintStateT(){
+        for(int j=0;j<9;j++){
+            for(int i=0;j<9;j++){
+                System.out.printf("%4d", this.stateMap[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
     public void PrintCandy(Candy candy[][]){
         for(int i=0;i<9;i++){
             for(int j=0;j<9;j++){
+                System.out.printf("%4d",candy[i][j].get_type());
+            }
+            System.out.println();
+        }
+    }
+
+    public void PrintCandyT(Candy candy[][]){
+        for(int j=0;j<9;j++){
+            for(int i=0;i<9;i++){
                 System.out.printf("%4d",candy[i][j].get_type());
             }
             System.out.println();
@@ -46,7 +73,7 @@ public class CandyHelper {
         //change statemap
         if((r-l+1) >= 3) {               //>=2
             sameNum = r - l;
-            for(int m = r ; m<=l;m++ ){
+            for(int m = l ; m<=r;m++ ){
                 this.stateMap[i][m] = -1; //fill the state map
             }
         }
@@ -65,13 +92,13 @@ public class CandyHelper {
 
     //return the rightmost same index
     public int checkright(Candy candy[][],int i, int j){
-        int work = j;                       //col
+        int work = j;                                       //col
         int originType = candy[i][j].get_type();
 
         while(work < 8 ){   //&&(stateMap[work][j]!=-1)){       //if current candy has been checked【only works in whole map checking】 , cancel the checking
             work++;     //at most to 8
 
-            if (candy[i][work].get_type() != originType)
+            if (candy[i][work].get_type() != originType)      //j = col
                 break;
 
             j++;
@@ -136,13 +163,13 @@ public class CandyHelper {
      * @return amount of candies that could be eliminated
      */
     public boolean checkWholeMap(Candy candy[][]){
-        boolean score[][] = new boolean[9][9];
-
+        //boolean score[][] = new boolean[9][9];
+        int m = 0;
         boolean result = false;
         for(int i=0;i<9;i++){
             for(int j=0;j<9;j++){
                 boolean thisRound = checkSingleCandy(candy,i,j);
-                score[i][j] = thisRound;      //（划掉：has avoid recounting in checkLeft/right/up/down）
+                this.score[i][j] = thisRound;      //（划掉：has avoid recounting in checkLeft/right/up/down）
                 result = thisRound||result;
 
             }
@@ -163,22 +190,22 @@ public class CandyHelper {
      * @param candy
      * @return if it is Succeed
      */
-    public boolean dropCandies(Candy candy[][]){
+    public boolean dropCandies(Candy candy[][]){   //drop from left to right
         try {
-            for (int col = 0; col < 9; col++) {
-                for (int row = 0; row < 9; row++) {   //scan from up to down
+            for (int row = 0; row < 9; row++) {     //scan from up to down
+                for (int col = 0; col < 9; col++) {   //scan from left to right
                     //check every possible pitfall and drop candy from up to down
                     if (this.stateMap[row][col] == -1) {
                         //resume the state
                         this.stateMap[row][col] = 0;
                         Candy c = new Candy();
                         c.set_type();
-                        int work = row;
-                        for (work = row; work > 0; work--) {
-                            candy[work][col] = candy[work-1][col]; //replace the candy
+                        int work = col;
+                        for (work = col; work > 0; work--) {
+                            candy[row][work] = candy[row][work-1]; //replace the candy
                         }
                         //in the end ,work =0; 0*9 + col = col
-                        candy[0][col] = c;
+                        candy[row][0] = c;
                     }
                 }
             }
@@ -230,11 +257,12 @@ public class CandyHelper {
 
         h.PrintState();
         Candy candy[][] = new Candy[9][9];
-        for(int i=0;i<9;i++)
-            for(int j=0;j<9;j++){
-                candy[i][j]=new Candy();
+        for(int i=0;i<9;i++) {
+            for (int j = 0; j < 9; j++) {
+                candy[i][j] = new Candy();
                 candy[i][j].set_type();
             }
+        }
         System.out.println("Candy map initialized");
         h.PrintCandy(candy);
 
@@ -242,6 +270,7 @@ public class CandyHelper {
         boolean score = h.checkWholeMap(candy);
 
         h.PrintState();
+        System.out.println(h.ScoretoCrush());
 
         System.out.println("Droping Candy" );
         h.dropCandies(candy);

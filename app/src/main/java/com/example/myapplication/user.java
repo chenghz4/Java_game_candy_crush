@@ -2,7 +2,7 @@ package com.example.myapplication;
 
 public class user {
 
-
+    public int target=80;
     public int score;
     public boolean flag;
     public int count=0;
@@ -24,7 +24,7 @@ public class user {
 
     }
     public  boolean check(){
-        if(count<countmax) return false;
+        if(countmax<=0) return false;
         else return true;
 
 
@@ -37,6 +37,11 @@ public class user {
         flag=false;
 
     }
+    public boolean checktarget(){
+        if(score>=target) return true;
+        else return false;
 
 
+
+    }
 }
