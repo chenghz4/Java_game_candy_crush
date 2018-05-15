@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView input = null;
     private Button bt0 = null;
     private Button bt1 = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,13 +27,15 @@ public class MainActivity extends AppCompatActivity {
         bt0 = (Button) findViewById(R.id.bt0);
         bt1 = (Button) findViewById(R.id.bt1);
         input = (TextView) findViewById(R.id.tx0);
-        final Boardview b = new Boardview(this);
+        final Boardview  b = new Boardview(this);
+
         bt0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 setContentView(b);
-
+               // if(b.back) setContentView(R.layout.activity_main2);
+                //b.back=false;
             }
         });
 

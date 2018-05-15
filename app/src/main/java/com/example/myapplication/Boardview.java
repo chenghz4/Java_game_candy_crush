@@ -1,5 +1,7 @@
 package com.example.myapplication;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -10,10 +12,13 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 import java.util.*;
+import java.util.zip.Inflater;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.view.View;
 
 
 public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
@@ -34,17 +39,20 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
     CandyHelper h=new CandyHelper();
     boolean flag1 = false;
     boolean restart=false;
+   public static boolean back=false;
     Candy temp = new Candy();
     int direction; //0:up,1:down,2:left,3:right
     Candy candy[][] = new Candy[9][9];
     static user a = new user();
     Paint paint = new Paint();
+    MainActivity mainActivity=new MainActivity();
+
 
     public Boardview(Context context) {
         super(context);
         getHolder().addCallback(this);
         setFocusable(true); // Very i m p o r t a n t
-        requestFocus();
+        //requestFocus();
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -125,9 +133,9 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
         setRestart();
         if(y1<=2000&&y1>=1900&&y2<=2000&&y2>=1900&&x1>1000&&x2>1000&&x1<1220&&x2<1220){
            //exit() in a fail way;
-
-
-
+               // back=true;
+            //View view=View.inflate(Context context1, R.layout.activity_main2, null);
+        setVisibility(INVISIBLE);
 
 
         }
@@ -174,11 +182,12 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
             }
             if(a.check()){
 
+                setVisibility(INVISIBLE);
 
             }
             if(a.checktarget()){
 
-
+                setVisibility(INVISIBLE);
 
             }
 
@@ -223,6 +232,7 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
         c.drawText("Target:80",200,1500,paint);
         c.drawText("Restart",1000,1800,paint);
         c.drawText("Back",1000,2000,paint);
+
 
     }
 
