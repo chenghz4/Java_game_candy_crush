@@ -24,8 +24,8 @@ public class user {
 
     }
     public  boolean check(){
-        if(countmax<=0) return false;
-        else return true;
+        if(countmax<=0) return true;
+        else return false;
 
 
 
