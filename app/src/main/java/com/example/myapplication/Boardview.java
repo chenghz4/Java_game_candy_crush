@@ -129,7 +129,7 @@ public class Boardview extends SurfaceView implements SurfaceHolder.Callback {
             flag1 = true;
         }
 
-        if(y1<=1800&&y1>=1700&&y2<=1800&&y2>=1700&&x1>1000&&x2>1000&&x1<1360&&x2<1360) restart=true;
+        if(!h.hasSolution(candy)||(y1<=1800&&y1>=1700&&y2<=1800&&y2>=1700&&x1>1000&&x2>1000&&x1<1360&&x2<1360)) restart=true;
         setRestart();
         if(y1<=2000&&y1>=1900&&y2<=2000&&y2>=1900&&x1>1000&&x2>1000&&x1<1220&&x2<1220){
            //exit() in a fail way;

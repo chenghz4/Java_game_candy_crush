@@ -247,6 +247,89 @@ public class CandyHelper {
         return false;
     }
 
+    public boolean swap(Candy [][] candy,int i,int j,int x, int y){
+
+        Candy temp = candy[i][j];
+        candy[i][j] = candy[x][y];
+        candy[x][y] = temp;
+
+        return true;
+    }
+
+    /**Check if the map has any other solutions
+     * ===to be implemented
+     *
+     * @return result
+     *         *true--- still has possible moves
+     *         *false-- do not have possible moves
+     */
+    public boolean hasSolution(Candy candy[][]){
+
+        // 1. check if there is a solution before swaping
+        boolean result = checkWholeMap(candy);
+        if(result) {
+            System.out.printf("Still has solutions for original candy map:\n");
+            PrintState();
+            clearState();
+            return true;
+        }
+
+        //2. check if there is a solution by swaping
+        for (int row = 0; row < 8; row++) {     //scan from up to down
+            for (int col = 0; col < 8; col++) {
+                //-------swap down
+                swap(candy,row,col,row+1, col);
+                if(checkSingleCandy(candy,row,col)||checkSingleCandy(candy,row+1,col)) {
+                    System.out.printf("the candy to change is:(%d,%d)\n",row,col);
+                    PrintCandy(candy);
+                    swap(candy, row, col, row + 1, col);
+                    clearState();
+                    return true;                           //has solution
+                }
+                else swap(candy,row,col,row+1, col);
+
+                //-------swap right
+                swap(candy,row,col,row, col+1);
+                if(checkSingleCandy(candy,row,col)||checkSingleCandy(candy,row,col+1)) {
+                    System.out.printf("the candy to change is:(%d,%d)\n",row,col);
+                    PrintCandy(candy);
+                    swap(candy, row, col, row, col+1);
+                    clearState();
+                    return true;                           //not done
+                }
+                else swap(candy,row,col,row, col+1);
+
+            }
+
+        }
+
+        //the candy at (8,8) need to be swaped up and left
+        swap(candy,8,8,7, 8);
+        if(checkSingleCandy(candy,8,8)||checkSingleCandy(candy,7,8)) {
+            System.out.printf("the candy to change is:(%d,%d)\n",8,8);
+            PrintCandy(candy);
+            swap(candy, 8, 8, 7, 8);
+            clearState();
+            return true;                           //not done
+        }
+        else swap(candy,8,8,7, 8);
+
+        //-------swap right
+        swap(candy,8,8,8, 7);
+        if(checkSingleCandy(candy,8,8)||checkSingleCandy(candy,8,7)) {
+            System.out.printf("the candy to change is:(%d,%d)\n",8,8);
+            PrintCandy(candy);
+            swap(candy, 8, 8, 8, 7);
+            clearState();
+            return true;                           //not done
+        }
+        else swap(candy,8,8,8, 7);
+
+        //clear statemap
+        clearState();
+
+        return false;
+    }
 
 
 
